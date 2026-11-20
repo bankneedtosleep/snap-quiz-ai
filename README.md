@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SnapQuiz AI
 
-## Getting Started
+เปลี่ยนสรุปสั้น ๆ ให้เป็นแฟลชการ์ดและมินิควิซในคลิกเดียว แล้วเปิดทบทวนซ้ำโดยไม่เรียก AI อีก
 
-First, run the development server:
+## เริ่มใช้
+
+1. คัดลอก `.env.example` เป็น `.env.local`
+2. ใส่ `GEMINI_API_KEY` จาก Google AI Studio
+3. สร้างโปรเจกต์บน [Supabase](https://supabase.com) แล้วใส่ `SUPABASE_URL` กับ anon key
+4. เปิด SQL Editor แล้วรันไฟล์ `supabase/schema.sql`
+5. เริ่มเซิร์ฟเวอร์
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+เปิด [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+คีย์ทั้งสามตัวอยู่ฝั่งเซิร์ฟเวอร์ ไม่มี prefix `NEXT_PUBLIC_` จึงไม่ถูกส่งไปที่เบราว์เซอร์
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## การทำงาน
 
-## Learn More
+- หน้าแรกจำกัดสรุปที่ 1,500 ตัวอักษร และให้เลือก 3 หรือ 5 ข้อ
+- `/api/generate` เรียก `gemini-2.5-flash-lite` แบบ Structured JSON ปิด thinking และจำกัด output token
+- พรอมป์สั่งให้ถามจากโน้ตที่วางเข้าไปเท่านั้น
+- ได้ JSON แล้วบันทึกลงตาราง `decks` พร้อมแฮชของข้อความและจำนวนข้อ
+- ข้อความเดิมกับจำนวนข้อเดิมจะคืนชุดเก่าทันที
+- หน้า `/deck/[id]` อ่านจาก Supabase อย่างเดียว ใช้ทวนซ้ำหรือแชร์ลิงก์ได้โดยเสีย 0 token
+- `/preview` เป็นตัวอย่างคงที่ ใช้ซ้อมพรีเซนต์ก่อนใส่คีย์
 
-To learn more about Next.js, take a look at the following resources:
+## จุดขายตอนพรีเซนต์
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Generate once, read many:** สร้างครั้งเดียว อ่านกี่รอบก็ไม่เรียกโมเดล ลดโทเคนได้มากเมื่อเทียบกับแชตที่ถามใหม่ทุกครั้ง
+- **Structured output:** บังคับ JSON schema จึงไม่มีคำเกริ่น และควบคุมความยาว output ได้
+- **Context-grounded:** คำถามต้องมาจากสรุปที่ผู้ใช้วาง ไม่เปิดให้โมเดลแต่งความรู้เอง
