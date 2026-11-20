@@ -20,18 +20,17 @@ function classNameFor(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base;
 }
 
-export function PrimaryButton({ className, children, ...props }: ButtonProps | LinkProps) {
+export function PrimaryButton(props: ButtonProps | LinkProps) {
   if ("href" in props && props.href) {
+    const { className, children, ...linkProps } = props;
     return (
-      <Link className={classNameFor("primary-button", className)} {...props}>
+      <Link className={classNameFor("primary-button", className)} {...linkProps}>
         {children}
       </Link>
     );
   }
 
-  const buttonProps = { ...props };
-  delete buttonProps.href;
-
+  const { className, children, ...buttonProps } = props as ButtonProps;
   return (
     <button className={classNameFor("primary-button", className)} {...buttonProps}>
       {children}

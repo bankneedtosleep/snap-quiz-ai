@@ -20,18 +20,17 @@ function classNameFor(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base;
 }
 
-export function OutlineButton({ className, children, ...props }: ButtonProps | LinkProps) {
+export function OutlineButton(props: ButtonProps | LinkProps) {
   if ("href" in props && props.href) {
+    const { className, children, ...linkProps } = props;
     return (
-      <Link className={classNameFor("outline-button", className)} {...props}>
+      <Link className={classNameFor("outline-button", className)} {...linkProps}>
         {children}
       </Link>
     );
   }
 
-  const buttonProps = { ...props };
-  delete buttonProps.href;
-
+  const { className, children, ...buttonProps } = props as ButtonProps;
   return (
     <button className={classNameFor("outline-button", className)} {...buttonProps}>
       {children}
