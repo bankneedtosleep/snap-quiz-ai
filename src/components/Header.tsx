@@ -9,7 +9,7 @@ export function Header() {
         <span className="brand-name">SnapQuiz</span>
         <span className="ai-sticker">AI</span>
       </Link>
-      <p className="tagline">เปลี่ยนสรุปสั้นๆ ให้เป็นข้อสอบทวนความรู้ในคลิกเดียว</p>
+      <p className="tagline">เปลี่ยนสรุปสั้นๆ ให้เป็นการทวนใจความในคลิกเดียว</p>
     </header>
   );
 }

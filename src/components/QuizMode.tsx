@@ -146,7 +146,7 @@ export function QuizMode({
               ) : picked === quiz.answerIndex ? (
                 "ถูก"
               ) : (
-                `ผิด คำตอบที่ถูกคือ ${quiz.options[quiz.answerIndex]}`
+                `ผิด จุดที่พลาดคือ ${quiz.options[quiz.answerIndex]}`
               )}
             </p>
             {picked !== null ? (

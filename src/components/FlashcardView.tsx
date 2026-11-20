@@ -99,12 +99,12 @@ export function FlashcardView({ cards, active = true }: { cards: Flashcard[]; ac
             <p className="eyebrow">ทวนครบแล้ว</p>
             <p className="done-title">ครบทุกใบในรอบนี้</p>
             <p className="score-caption">
-              จำได้แล้ว {knownCount.toLocaleString("th-TH")} ใบ · ยังไม่แม่น {againCount.toLocaleString("th-TH")} ใบ
+              อธิบายได้ {knownCount.toLocaleString("th-TH")} ใบ · ยังเล่าไม่คล่อง {againCount.toLocaleString("th-TH")} ใบ
             </p>
             {againCount > 0 ? (
               <PrimaryButton type="button" onClick={reviewAgain}>
                 <DeskIcon name="cycle" />
-                ทวนใบที่ยังไม่แม่นอีกครั้ง
+                ทวนใบที่ยังเล่าไม่คล่องอีกครั้ง
               </PrimaryButton>
             ) : null}
           </div>
@@ -119,15 +119,15 @@ export function FlashcardView({ cards, active = true }: { cards: Flashcard[]; ac
               <span className={flipped ? "flip-inner is-flipped" : "flip-inner"}>
                 <span className="flip-face flip-front" aria-hidden={flipped}>
                   <span className="face-label">
-                    คำถาม {(index + 1).toLocaleString("th-TH")}/{cards.length.toLocaleString("th-TH")}
+                    จากสรุป {(index + 1).toLocaleString("th-TH")}/{cards.length.toLocaleString("th-TH")}
                   </span>
                   <span className="face-copy">{card.question}</span>
-                  <span className="face-hint">แตะการ์ดเพื่อดูคำตอบ</span>
+                  <span className="face-hint">แตะการ์ดเพื่อดูว่าต้องเล่าอะไร</span>
                 </span>
                 <span className="flip-face flip-back" aria-hidden={!flipped}>
-                  <span className="face-label">คำตอบ</span>
+                  <span className="face-label">เล่าให้ได้</span>
                   <span className="face-copy">{card.answer}</span>
-                  <span className="face-hint">แตะการ์ดเพื่อกลับไปคำถาม</span>
+                  <span className="face-hint">แตะการ์ดเพื่อกลับไปอ่านสรุป</span>
                 </span>
               </span>
             </button>
@@ -151,11 +151,11 @@ export function FlashcardView({ cards, active = true }: { cards: Flashcard[]; ac
         <div className="card-controls mark-row">
           <button type="button" className="again-button" onClick={() => mark("again")}>
             <DeskIcon name="cycle" />
-            ยังไม่แม่น
+            ยังเล่าไม่คล่อง
           </button>
           <PrimaryButton type="button" onClick={() => mark("known")}>
             <DeskIcon name="check" />
-            จำได้แล้ว
+            อธิบายได้
           </PrimaryButton>
         </div>
       </div>
@@ -164,10 +164,10 @@ export function FlashcardView({ cards, active = true }: { cards: Flashcard[]; ac
         <h2>ความคืบหน้า</h2>
         <div className="chip-row" aria-live="polite">
           <p className="status-chip is-known">
-            จำได้แล้ว <strong key={knownCount}>{knownCount.toLocaleString("th-TH")}</strong>
+            อธิบายได้ <strong key={knownCount}>{knownCount.toLocaleString("th-TH")}</strong>
           </p>
           <p className="status-chip is-again">
-            ยังไม่แม่น <strong key={againCount}>{againCount.toLocaleString("th-TH")}</strong>
+            ยังเล่าไม่คล่อง <strong key={againCount}>{againCount.toLocaleString("th-TH")}</strong>
           </p>
           <p className="status-chip is-open">
             ยังไม่ตอบ <strong key={openCount}>{openCount.toLocaleString("th-TH")}</strong>

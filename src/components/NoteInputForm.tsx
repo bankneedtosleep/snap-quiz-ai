@@ -80,7 +80,7 @@ export function NoteInputForm() {
           value={text}
           maxLength={MAX_SOURCE_CHARS}
           rows={9}
-          placeholder="วางสรุปจากคาบเรียน เช่น นิยาม สูตร หรือใจความสำคัญ"
+          placeholder="วางสรุปจากคาบเรียน เป็นย่อหน้าหรือใจความที่จดไว้"
           onChange={(event) => {
             setText(event.target.value);
             setError(null);
